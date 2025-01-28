@@ -39,7 +39,7 @@ router.put("/:id", async (req, res) => {
       runValidators: true,
     });
 
-    if (!data) {
+    if (!updatedProgress) {
       return res.status(404).json({ error: "Data Not Found." });
     }
 
