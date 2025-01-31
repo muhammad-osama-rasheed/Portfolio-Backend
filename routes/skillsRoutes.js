@@ -1,14 +1,31 @@
 const express = require("express");
 const router = express.Router();
-const Progress = require("../models/progress");
+const Skills = require("../models/skills");
+const multer = require("multer");
 
-router.post("/", async (req, res) => {
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads/");
+  },
+  filename: (req, file, cb) => {
+    const suffix = Date.now();
+    cb(null, suffix + "-" + file.originalname);
+  },
+});
+
+const upload = multer({ storage });
+
+router.post("/", upload.single("image"), async (req, res) => {
   try {
     const data = req.body;
-    const newProgress = new Progress(data);
 
-    const savedProgress = await newProgress.save();
-    res.status(201).json({ success: true, data: savedProgress });
+    // console.log(req.file);
+    data.image = req.file.filename;
+
+    const newSkill = new Skills(data);
+
+    const savedSkill = await newSkill.save();
+    res.status(201).json({ success: true, data: savedSkill });
   } catch (error) {
     console.error("Error Saving: ", error);
     res.status(500).json({ error: "Internal Server Error." });
@@ -17,9 +34,9 @@ router.post("/", async (req, res) => {
 
 router.get("/", async (req, res) => {
   try {
-    const data = await Progress.find();
+    const data = await Skills.find();
 
-    if (data.length == 0) {
+    if (data.length === 0) {
       return res.status(404).json({ error: "Data Not Found." });
     }
 
@@ -34,16 +51,17 @@ router.put("/:id", async (req, res) => {
   try {
     const id = req.params.id;
     const updateData = req.body;
-    const updatedProgress = await Progress.findByIdAndUpdate(id, updateData, {
+
+    const updatedSkill = await Skills.findByIdAndUpdate(id, updateData, {
       new: true,
       runValidators: true,
     });
 
-    if (!updatedProgress) {
+    if (!updatedSkill) {
       return res.status(404).json({ error: "Data Not Found." });
     }
 
-    res.status(200).json({ success: true, data: updatedProgress });
+    res.status(200).json({ success: true, data: updatedSkill });
   } catch (error) {
     console.error("Error Updating: ", error);
     res.status(500).json({ error: "Internal Server Error." });
@@ -53,7 +71,8 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   try {
     const id = req.params.id;
-    const response = await Progress.findByIdAndDelete(id);
+
+    const response = await Skills.findByIdAndDelete(id);
 
     if (!response) {
       return res.status(404).json({ error: "Data Not Found." });

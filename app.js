@@ -20,6 +20,11 @@ app.use(bodyParser.json());
 const progressRoutes = require("./routes/progressRoutes");
 app.use("/progress", progressRoutes);
 
+const skillsRoutes = require("./routes/skillsRoutes");
+app.use("/skills", skillsRoutes);
+
+app.use("/uploads", express.static("uploads"));
+
 app.get("/", (req, res) => {
   res.send(
     "Hi i am Muhammad Osama, This is the Backend for my personal Portfolio."
