@@ -3,15 +3,17 @@ const router = express.Router();
 const Skills = require("../models/skills");
 const multer = require("multer");
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploads/");
-  },
-  filename: (req, file, cb) => {
-    const suffix = Date.now();
-    cb(null, suffix + "-" + file.originalname);
-  },
-});
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, "uploads/");
+//   },
+//   filename: (req, file, cb) => {
+//     const suffix = Date.now();
+//     cb(null, suffix + "-" + file.originalname);
+//   },
+// });
+
+const storage = multer.memoryStorage();
 
 const upload = multer({ storage });
 
@@ -20,7 +22,9 @@ router.post("/", upload.single("image"), async (req, res) => {
     const data = req.body;
 
     // console.log(req.file);
-    data.image = req.file.filename;
+    // data.image = req.file ? req.file.path : null;
+
+    data.image = req.file ? req.file.buffer.toString("base64") : null;
 
     const newSkill = new Skills(data);
 

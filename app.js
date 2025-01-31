@@ -23,7 +23,7 @@ app.use("/progress", progressRoutes);
 const skillsRoutes = require("./routes/skillsRoutes");
 app.use("/skills", skillsRoutes);
 
-app.use("/uploads", express.static("uploads"));
+// app.use("/uploads", express.static("uploads"));
 
 app.get("/", (req, res) => {
   res.send(
