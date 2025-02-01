@@ -3,16 +3,6 @@ const router = express.Router();
 const Skills = require("../models/skills");
 const multer = require("multer");
 
-// const storage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, "uploads/");
-//   },
-//   filename: (req, file, cb) => {
-//     const suffix = Date.now();
-//     cb(null, suffix + "-" + file.originalname);
-//   },
-// });
-
 const storage = multer.memoryStorage();
 
 const upload = multer({ storage });
@@ -20,9 +10,6 @@ const upload = multer({ storage });
 router.post("/", upload.single("image"), async (req, res) => {
   try {
     const data = req.body;
-
-    // console.log(req.file);
-    // data.image = req.file ? req.file.path : null;
 
     data.image = req.file ? req.file.buffer.toString("base64") : null;
 
@@ -51,10 +38,14 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", upload.single("image"), async (req, res) => {
   try {
     const id = req.params.id;
     const updateData = req.body;
+
+    if (req.file) {
+      updateData.image = req.file.buffer.toString("base64");
+    }
 
     const updatedSkill = await Skills.findByIdAndUpdate(id, updateData, {
       new: true,
