@@ -1,6 +1,16 @@
 const express = require("express");
 const router = express.Router();
 const Contact = require("../models/contact");
+const nodemailer = require("nodemailer");
+
+// Nodemailer Transporter Setup
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.EMAIL,
+    pass: process.env.PASSWORD,
+  },
+});
 
 router.post("/", async (req, res) => {
   try {
@@ -8,9 +18,30 @@ router.post("/", async (req, res) => {
     const newContact = new Contact(data);
 
     const savedContact = await newContact.save();
+
+    // Email Sending Logic
+    const mailOptions = {
+      from: process.env.EMAIL,
+      to: savedContact.email,
+      subject: "Thank you for contacting me!",
+      text: `Hi ${savedContact.name},\n\nThank you for reaching out. I have received your message:\n\n"${savedContact.message}".\n\nI will get back to you soon.\n\nBest Regards,\nMuhammad Osama`,
+    };
+
+    // Send the email
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.error("Error sending email:", error);
+        return res
+          .status(500)
+          .json({ error: "Error sending confirmation email." });
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    });
+
     res.status(201).json({
       success: true,
-      message: "Information saved successfully",
+      message: "Information saved and Check your email for confirmation.",
       data: savedContact,
     });
   } catch (error) {
@@ -50,7 +81,8 @@ router.put("/:id", async (req, res) => {
 
     res.status(200).json({
       success: true,
-      message: "Information Updated Successfully",
+      message:
+        "Your details have been successfully recorded. Please check your email for a confirmation message.",
       data: updatedContact,
     });
   } catch (error) {
