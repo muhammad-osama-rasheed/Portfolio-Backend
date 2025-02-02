@@ -5,13 +5,10 @@ const nodemailer = require("nodemailer");
 
 // Nodemailer Transporter Setup
 const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
-  requireTLS: true,
+  service: "gmail", 
   auth: {
-    user: process.env.EMAIL,
-    pass: process.env.PASSWORD,
+    user: process.env.EMAIL, 
+    pass: process.env.PASSWORD, 
   },
 });
 
@@ -24,8 +21,8 @@ router.post("/", async (req, res) => {
 
     // Email Sending Logic
     const mailOptions = {
-      from: process.env.EMAIL,
-      to: savedContact.email,
+      from: process.env.EMAIL, 
+      to: savedContact.email, 
       subject: "Thank you for contacting me!",
       text: `Hi ${savedContact.name},\n\nThank you for reaching out. I have received your message:\n\n"${savedContact.message}".\n\nI will get back to you soon.\n\nBest Regards,\nMuhammad Osama`,
     };
@@ -44,8 +41,7 @@ router.post("/", async (req, res) => {
 
     res.status(201).json({
       success: true,
-      message:
-        "Your details have been successfully recorded. Please check your email for a confirmation message.",
+      message: "Information saved and Message sent successfully",
       data: savedContact,
     });
   } catch (error) {
