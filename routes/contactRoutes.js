@@ -5,10 +5,10 @@ const nodemailer = require("nodemailer");
 
 // Nodemailer Transporter Setup
 const transporter = nodemailer.createTransport({
-  service: "gmail", 
+  service: "gmail",
   auth: {
-    user: process.env.EMAIL, 
-    pass: process.env.PASSWORD, 
+    user: process.env.EMAIL,
+    pass: process.env.PASSWORD,
   },
 });
 
@@ -21,23 +21,27 @@ router.post("/", async (req, res) => {
 
     // Email Sending Logic
     const mailOptions = {
-      from: process.env.EMAIL, 
-      to: savedContact.email, 
+      from: process.env.EMAIL,
+      to: savedContact.email,
       subject: "Thank you for contacting me!",
       text: `Hi ${savedContact.name},\n\nThank you for reaching out. I have received your message:\n\n"${savedContact.message}".\n\nI will get back to you soon.\n\nBest Regards,\nMuhammad Osama`,
     };
 
     // Send the email
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        console.error("Error sending email:", error);
-        return res
-          .status(500)
-          .json({ error: "Error sending confirmation email." });
-      } else {
-        console.log("Email sent: " + info.response);
-      }
-    });
+    // transporter.sendMail(mailOptions, (error, info) => {
+    //   if (error) {
+    //     console.error("Error sending email:", error);
+    //     return res
+    //       .status(500)
+    //       .json({ error: "Error sending confirmation email." });
+    //   } else {
+    //     console.log("Email sent: " + info.response);
+    //   }
+    // });
+
+    // Await sendMail for async operation
+    const info = await transporter.sendMail(mailOptions);
+    console.log("Email sent: " + info.response);
 
     res.status(201).json({
       success: true,
