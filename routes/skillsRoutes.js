@@ -21,7 +21,8 @@ router.post("/", upload.single("image"), async (req, res) => {
   try {
     const data = req.body;
 
-   
+    // console.log(req.file);
+    // data.image = req.file ? req.file.path : null;
 
     data.image = req.file ? req.file.buffer.toString("base64") : null;
 
