@@ -5,7 +5,7 @@ const nodemailer = require("nodemailer");
 
 // Nodemailer Transporter Setup
 const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
+  host: "smtp-relay.sendinblue.com",
   port: 587,
   secure: false,
   requireTLS: true,
