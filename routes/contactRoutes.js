@@ -6,8 +6,9 @@ const nodemailer = require("nodemailer");
 // Nodemailer Transporter Setup
 const transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
-  port: 465,
-  secure: true,
+  port: 587,
+  secure: false,
+  requireTLS: true,
   auth: {
     user: process.env.EMAIL,
     pass: process.env.PASSWORD,
