@@ -41,7 +41,8 @@ router.post("/", async (req, res) => {
 
     res.status(201).json({
       success: true,
-      message: "Information saved and Check your email for confirmation.",
+      message:
+        "Your details have been successfully recorded. Please check your email for a confirmation message.",
       data: savedContact,
     });
   } catch (error) {
@@ -81,8 +82,7 @@ router.put("/:id", async (req, res) => {
 
     res.status(200).json({
       success: true,
-      message:
-        "Your details have been successfully recorded. Please check your email for a confirmation message.",
+      message: "Information Updated Successfully",
       data: updatedContact,
     });
   } catch (error) {
