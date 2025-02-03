@@ -39,7 +39,7 @@ router.post("/", async (req, res) => {
     //   }
     // });
 
-    // Await sendMail for async operation
+    // sending mail
     const info = await transporter.sendMail(mailOptions);
     console.log("Email sent: " + info.response);
 

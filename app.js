@@ -26,6 +26,9 @@ app.use("/skills", skillsRoutes);
 const contactRoutes = require("./routes/contactRoutes");
 app.use("/contact", contactRoutes);
 
+const profileRoutes = require("./routes/profileRoutes");
+app.use("/profile", profileRoutes);
+
 // app.use("/uploads", express.static("uploads"));
 
 app.get("/", (req, res) => {
