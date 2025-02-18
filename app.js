@@ -16,7 +16,7 @@ const port = process.env.PORT || 3000;
 const bodyParser = require("body-parser");
 
 const path = require("path");
-const rootDir = require("./utils/pathUtil");
+// const rootDir = require("./utils/pathUtil");
 
 app.use(bodyParser.json());
 
