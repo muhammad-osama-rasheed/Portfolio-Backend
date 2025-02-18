@@ -58,7 +58,7 @@ app.use("/about", aboutRoutes);
 app.use(express.static(path.join(rootDir, "public")));
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(rootDir, "views", "home.html"));
+  res.sendFile(path.join(rootDir, "public", "home.html"));
 });
 
 app.listen(port, () => {
