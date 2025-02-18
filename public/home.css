@@ -11,7 +11,7 @@ h1{
 p.sub-heading{
   color: #2C98F0;
   font-weight: 500;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .main-container{
@@ -19,7 +19,7 @@ p.sub-heading{
   max-width: 320px;
   padding: 20px;
   box-shadow: 0 35px 80px rgba(0,0,0,0.15);
-  border-radius: 12px;
+  border-radius: 2px;
   max-height: 500px;
   overflow: auto;
   scrollbar-width: none;
@@ -35,7 +35,7 @@ img{
 a{
   text-decoration: none;
   color: #000000B3;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
   margin-left: 5px;
   transition: color 0.3s ease;
@@ -50,6 +50,12 @@ a{
   color: #2C98F0;
 }
 
-hr{
- border: 1px dotted #2C98F0;
+.bottom-line{
+  border-bottom: 1px dotted #2C98F0;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+footer p {
+  color: #000000B3;
 }
