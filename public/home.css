@@ -5,7 +5,7 @@ body{
 
 h1{
   color: #000000B3;
-  font-size: 27px;
+  font-size: 24px;
 }
 
 p.sub-heading{
@@ -16,7 +16,7 @@ p.sub-heading{
 
 .main-container{
   margin: 0 auto;
-  max-width: 300px;
+  max-width: 350px;
   padding: 20px;
   box-shadow: 0 35px 80px rgba(0,0,0,0.15);
   border-radius: 12px;
