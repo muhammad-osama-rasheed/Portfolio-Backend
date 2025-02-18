@@ -55,10 +55,10 @@ app.use("/about", aboutRoutes);
 
 // app.use("/uploads", express.static("uploads"));
 
-app.use(express.static(path.join(rootDir, "public")));
+app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", (req, res) => {
-  res.sendFile(path.join(rootDir, "public", "home.html"));
+  res.sendFile(path.join(__dirname, "public", "home.html"));
 });
 
 app.listen(port, () => {
