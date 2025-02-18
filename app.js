@@ -15,7 +15,13 @@ const db = require("./database/db");
 const port = process.env.PORT || 3000;
 const bodyParser = require("body-parser");
 
+const path = require("path");
+const rootDir = require("./utils/pathUtil");
+
 app.use(bodyParser.json());
+
+const authRoutes = require("./routes/authRoutes");
+app.use("/auth", authRoutes);
 
 const progressRoutes = require("./routes/progressRoutes");
 app.use("/progress", progressRoutes);
@@ -29,12 +35,30 @@ app.use("/contact", contactRoutes);
 const profileRoutes = require("./routes/profileRoutes");
 app.use("/profile", profileRoutes);
 
+const blogRoutes = require("./routes/blogRoutes");
+app.use("/blog", blogRoutes);
+
+const educationRoutes = require("./routes/educationRoutes");
+app.use("/education", educationRoutes);
+
+const serviceRoutes = require("./routes/serviceRoutes");
+app.use("/service", serviceRoutes);
+
+const certificateRoutes = require("./routes/certificateRoutes");
+app.use("/certificate", certificateRoutes);
+
+const projectRoutes = require("./routes/projectRoutes");
+app.use("/project", projectRoutes);
+
+const aboutRoutes = require("./routes/aboutRoutes");
+app.use("/about", aboutRoutes);
+
 // app.use("/uploads", express.static("uploads"));
 
+app.use(express.static(path.join(rootDir, "public")));
+
 app.get("/", (req, res) => {
-  res.send(
-    "Hi i am Muhammad Osama, This is the Backend for my personal Portfolio."
-  );
+  res.sendFile(path.join(rootDir, "views", "home.html"));
 });
 
 app.listen(port, () => {
