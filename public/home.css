@@ -17,10 +17,10 @@ p.sub-heading{
 .main-container{
   margin: 0 auto;
   max-width: 320px;
+  max-height: 520px;
   padding: 20px;
   box-shadow: 0 35px 80px rgba(0,0,0,0.15);
   border-radius: 2px;
-  max-height: 500px;
   overflow: auto;
   scrollbar-width: none;
   scroll-behavior: smooth;
