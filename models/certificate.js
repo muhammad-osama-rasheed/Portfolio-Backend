@@ -22,6 +22,11 @@ const certificateSchema = new mongoose.Schema({
     type: String,
   },
 
+  imageUrl: {
+    type: String,
+    default: "N/A",
+  },
+
   url: {
     type: String,
     required: true,
