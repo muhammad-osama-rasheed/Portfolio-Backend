@@ -24,7 +24,6 @@ const certificateSchema = new mongoose.Schema({
 
   imageUrl: {
     type: String,
-    default: "N/A",
   },
 
   url: {

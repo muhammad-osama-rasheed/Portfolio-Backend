@@ -19,16 +19,22 @@ const educationSchema = new mongoose.Schema({
 
   image: {
     type: String,
-    required: true,
   },
+
+  imageUrl: {
+    type: String,
+  },
+
   startDate: {
     type: String,
     required: true,
   },
+
   endDate: {
     type: String,
     default: "Present",
   },
+  
   isOngoing: {
     type: Boolean,
     default: false,
